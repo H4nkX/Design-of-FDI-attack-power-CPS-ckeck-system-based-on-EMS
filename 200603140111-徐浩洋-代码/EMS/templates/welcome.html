@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FDIA Detection</title>
+    <style>
+        /* 全局字体设置 */
+        body, input, button {
+            font-family: 'Arial', sans-serif;
+        }
+
+        /* 全屏显示 */
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* 主容器样式 */
+        .content {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+            margin: auto; /* 水平居中 */
+            position: relative;
+            top: 50%;
+            transform: translateY(-50%); /* 垂直居中 */
+        }
+
+        /* 标题样式 */
+        h1 {
+            color: #333333;
+            margin-bottom: 20px;
+        }
+
+        /* 段落样式 */
+        p {
+            color: #666666;
+            margin-bottom: 30px;
+        }
+
+        /* 输入框和按钮样式 */
+        input[type="text"],
+        input[type="password"] {
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 100%;
+            box-sizing: border-box; /* 保证输入框不会超出容器宽度 */
+        }
+
+        button {
+            padding: 10px 20px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 4px;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+
+        /* 链接样式 */
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* 按钮悬停效果 */
+        button:hover:not(:disabled) {
+            background-color: #0056b3;
+        }
+    </style>
+    <script>
+                function checkLogin() {
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+            var buttons = document.querySelectorAll('button');
+            if (username === 'admin' && password !== 'admin') {
+                buttons.forEach(function(button) {
+                    button.disabled = true;
+                });
+            } else {
+                buttons.forEach(function(button) {
+                    button.disabled = false;
+                });
+            }
+        }
+
+    </script>
+</head>
+<body>
+    <div class="content">
+        <h1>智能电网EMS检测FDIA</h1>
+        <p>欢迎来到本EMS</p>
+        <label for="username">用户名:</label>
+        <input type="text" id="username" name="username">
+        <label for="password">密码:</label>
+        <input type="password" id="password" name="password">
+        <button onclick="checkLogin()">登录</button></br></br>
+
+        <a href="/monitor"><button id="detectButton" disabled>检测探针</button></a>
+
+        <a href="/parameters"><button id="parameterButton" disabled>参数监控</button></a>
+        </br>
+        <a href="/bot"><button id="botButton" disabled>知识库机器人</button></a>
+         <a href="/manual"><button id="manual" disabled>使用手册</button></a>
+         <a href="/update-config"><button id="update-config" disabled>各项关键基础设施参数配置</button></a>
+        <a href="/more"><button id="more" disabled>导航</button></a>
+        <a href="/select-department"><button id="select-department" disabled>多部门协作</button></a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>EMS/CPS 系统集成调试页面</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+
+<h1>EMS/CPS 系统集成调试页面</h1>
+
+<!-- 用于显示监控数据的区域 -->
+<div id="monitoring-data">
+    <h2>监控数据（用于显示监控数据的区域）</h2>
+    <p id="monitoring-data-result"></p>
+</div>
+
+<!-- 用于更新监控数据的表单 -->
+<div id="update-monitoring-data">
+    <h2>输入数据接口（用于更新监控数据的POST接口）</h2>
+    <form>
+        <label for="time">时间:</label>
+        <input type="text" id="time" name="time"><br><br>
+        <label for="power-consumption">消耗功率（MV）:</label>
+        <input type="text" id="power-consumption" name="power-consumption"><br><br>
+        <input type="button" value="提交" id="submit-data">
+    </form>
+</div>
+
+<!-- 用于发送CPS命令的表单 -->
+<div id="cps-command">
+    <h2>用于发送CPS命令的接口</h2>
+    <form>
+        <label for="action">命令:</label>
+        <input type="text" id="action" name="action"><br><br>
+        <input type="button" value="发送指令" id="send-command">
+    </form>
+</div>
+
+<script>
+$(document).ready(function() {
+    // 获取监控数据
+    $.get("/api/monitoring_data", function(data, status) {
+        $("#monitoring-data-result").text("Data: " + JSON.stringify(data) + "\nStatus: " + status);
+    });
+
+    // 更新监控数据
+    $("#submit-data").click(function() {
+        var data = {
+            time: $("#time").val(),
+            power_consumption: $("#power-consumption").val()
+        };
+        $.post("/api/monitoring_data", JSON.stringify(data), function(data, status) {
+            alert("Data: " + data.message + "\nStatus: " + status);
+        });
+    });
+
+    // 发送CPS命令
+    $("#send-command").click(function() {
+        var command = {
+            action: $("#action").val()
+        };
+        $.post("/api/cps_command", JSON.stringify(command), function(data, status) {
+            alert("Command: " + data.message + "\nStatus: " + status);
+        });
+    });
+});
+</script>
+
+</body>
+</html>

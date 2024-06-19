@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FDI攻击探针</title>
+    <!-- 引入Plotly的CDN链接 -->
+    <script src="https://cdn.plot.ly/plotly-2.3.0.min.js"></script>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .harmful {
+            color: red;
+        }
+        .harmless {
+            color: green;
+        }
+        h1 {
+            text-align: center;
+        }
+</style>
+</head>
+<body>
+    <h1>实时监测FDI攻击探针</h1>
+    <div id="plot"></div>
+
+    <table>
+        <tr>
+            <th>状态</th>
+            <th>操作</th>
+        </tr>
+        <tr>
+            <td class="harmful">可能存在黑客进行FDI攻击，请核查</td>
+            <td><button onclick="changeStatus(this)">误报</button></td>
+        </tr>
+    </table>
+
+    <script>
+        var graphJSON = {{ graphJSON | safe }};
+
+        var layout = {
+            xaxis: {
+                title: 'Time'  // 横坐标标题
+            },
+            yaxis: {
+                title: 'Power Consumption(MW)'  // 纵坐标标题
+            }
+        };
+
+        Plotly.newPlot('plot', graphJSON, layout);
+
+        function changeStatus(button) {
+            var statusCell = button.parentNode.previousElementSibling;
+            if (statusCell.classList.contains('harmful')) {
+                statusCell.classList.remove('harmful');
+                statusCell.classList.add('harmless');
+                statusCell.textContent = '无害';
+                button.textContent = '恢复报警';
+            } else {
+                statusCell.classList.remove('harmless');
+                statusCell.classList.add('harmful');
+                statusCell.textContent = '可能存在黑客进行FDI攻击，请核查';
+                button.textContent = '误报';
+            }
+        }
+</script>
+<div>
+    <label for="chisq-threshold">调整卡方阈值(倒数):</label>
+    <input type="number" id="chisq-threshold" name="chisq-threshold" value="{{ current_threshold }}">
+    <button onclick="updateThreshold()">更新阈值</button>
+</div>
+
+<script>
+    function updateThreshold() {
+    var newThreshold = document.getElementById('chisq-threshold').value;
+    fetch('/update-threshold', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ "threshold": newThreshold })
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('阈值已更新:', data.newThreshold);
+        // 更新输入字段的值
+        document.getElementById('chisq-threshold').value = data.newThreshold;
+        // 刷新页面
+        window.location.reload();
+    });
+}
+</script>
+    <footer>
+        <p>Author: Xu Haoyang A.K.A H4nk</p>
+    </footer>
+</body>
+</html>

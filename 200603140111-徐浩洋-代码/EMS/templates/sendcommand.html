@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>远程电气设备控制（当前支持Modbus协议）</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .control-form {
+            margin-bottom: 20px;
+        }
+        .control-form label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .control-form input, .control-form select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .control-form button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .control-form button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>远程控制电气设备（当前支持Modbus协议）</h1>
+        <form class="control-form">
+            <label for="device-id">设备ID:</label>
+            <input type="number" id="device-id" name="device-id" required>
+            <label for="command">指令:</label>
+            <select id="command" name="command" required>
+                <option value="">选择命令</option>
+                <option value="start">打开状态</option>
+                <option value="stop">关闭状态</option>
+                <option value="reset">重置最初状态</option>
+            </select>
+            <button type="submit">发送指令</button>
+        </form>
+    </div>
+
+    <script>
+        // 添加JavaScript代码
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.querySelector('.control-form');
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
+                const deviceId = document.getElementById('device-id').value;
+                const command = document.getElementById('command').value;
+                const data = { deviceId, command };
+                fetch('/send_modbus_command', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data),
+                })
+                .then(response => response.json())
+                .then(result => {
+                    alert(result.message);
+                })
+                .catch(error => {
+                    alert('Error: ' + error);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

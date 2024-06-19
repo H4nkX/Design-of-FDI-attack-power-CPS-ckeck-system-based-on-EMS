@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>配置管理</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f7f7f7;
+        }
+        .config-form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            margin: auto;
+        }
+        .config-form fieldset {
+            border: none;
+        }
+        .config-form legend {
+            font-size: 1.5em;
+        }
+        .config-form input[type="text"],
+        .config-form input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .config-form input[type="submit"] {
+            background-color: #5cb85c;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .config-form input[type="submit"]:hover {
+            background-color: #4cae4c;
+        }
+    </style>
+</head>
+<body>
+    <div class="config-form">
+        <h1>配置管理</h1>
+        <form action="/update-config" method="post">
+            <fieldset>
+                <legend>数据库连接信息</legend>
+                <label for="user">数据库用户名:</label>
+                <input type="text" id="user" name="user" value="{{ config['user'] }}" required><br>
+
+                <label for="password">数据库密码:</label>
+                <input type="password" id="password" name="password" value="{{ config['password'] }}" required><br>
+
+                <label for="host">数据库主机:</label>
+                <input type="text" id="host" name="host" value="{{ config['host'] }}" required><br>
+
+                <label for="database">数据库名:</label>
+                <input type="text" id="database" name="database" value="{{ config['database'] }}" required><br>
+            </fieldset>
+            <!-- 提交按钮 -->
+            <input type="submit" value="更新配置">
+        </form>
+    </div>
+</body>
+</html>

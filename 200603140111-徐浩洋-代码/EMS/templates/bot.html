@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>智能对话机器人</title>
+<style>
+  html, body, .container, .chatbot-frame-container, .chatbot-frame {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+  }
+  body {
+    overflow: hidden;
+    background-color: #f4f4f4;
+  }
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .chatbot-frame {
+    border: none;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-radius: 8px;
+  }
+  .chatbot-frame-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    height: 100%; /* Ensure the container takes up full height */
+    width: 100%; /* Ensure the container takes up full width */
+  }
+  @media (max-width: 600px) {
+    .chatbot-frame-container {
+      padding: 10px;
+    }
+  }
+</style>
+<script>
+  // 在页面加载完成后显示弹窗
+  window.onload = function() {
+    alert('欢迎来到智能对话机器人。您可以提出任何不限于电网的问题，手机号登录后，请在对话框中输入进行答疑。');
+  };
+</script>
+</head>
+<body>
+<div class="container">
+  <div class="chatbot-frame-container">
+    <iframe title="bot" src="https://chatglm.cn/main/gdetail/660a4805d88fa94b9c2b2db8" frameborder="0" allowFullScreen="true" class="chatbot-frame"></iframe>
+  </div>
+</div>
+</body>
+</html>

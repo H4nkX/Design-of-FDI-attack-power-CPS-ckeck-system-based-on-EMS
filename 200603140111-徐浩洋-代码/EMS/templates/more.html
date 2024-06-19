@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>更多业务应用</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .url-list {
+            margin-top: 20px;
+            padding: 0;
+            list-style: none;
+        }
+        .url-list li {
+            padding: 10px;
+            border: 1px solid #ddd;
+            margin-bottom: 5px;
+            background-color: #f9f9f9;
+        }
+        .url-list li button {
+            float: right;
+            background-color: #f44336;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>更多业务应用</h1>
+        <div>
+            <label for="connection-url">其他业务:</label>
+            <input type="text" id="connection-url" placeholder="请输入连接URL">
+        </div>
+        <button class="save-btn" onclick="saveConnection()">保存</button>
+        <ul class="url-list" id="url-list"></ul>
+    </div>
+
+    <script>
+        // 当页面加载时，尝试填充保存的连接URL
+        document.addEventListener('DOMContentLoaded', function() {
+            var savedUrls = JSON.parse(localStorage.getItem('connectionUrls')) || [];
+            displayConnections(savedUrls);
+        });
+
+        function saveConnection() {
+            var url = document.getElementById('connection-url').value;
+            if(url) {
+                var savedUrls = JSON.parse(localStorage.getItem('connectionUrls')) || [];
+                savedUrls.push(url);
+                localStorage.setItem('connectionUrls', JSON.stringify(savedUrls));
+                displayConnections(savedUrls);
+                document.getElementById('connection-url').value = '';
+                alert('连接已保存！');
+            } else {
+                alert('请输入连接URL！');
+            }
+        }
+
+        function displayConnections(urls) {
+            var listElement = document.getElementById('url-list');
+            listElement.innerHTML = ''; // 清空当前列表
+            urls.forEach(function(url) {
+                var listItem = document.createElement('li');
+                listItem.textContent = url;
+                var deleteButton = document.createElement('button');
+                deleteButton.textContent = '删除';
+                deleteButton.onclick = function() {
+                    var index = urls.indexOf(url);
+                    if(index !== -1) {
+                        urls.splice(index, 1);
+                        localStorage.setItem('connectionUrls', JSON.stringify(urls));
+                        displayConnections(urls);
+                    }
+                };
+                listItem.appendChild(deleteButton);
+                listElement.appendChild(listItem);
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>监控应用使用手册</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background-color: #fff;
+            padding: 40px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 40px;
+        }
+        h2 {
+            color: #5a5a5a;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        p {
+            color: #666;
+            font-size: 16px;
+            padding-bottom: 20px;
+        }
+        .contact {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>监控应用使用手册</h1>
+        <div>
+            <h2>欢迎</h2>
+            <p>{{ manual_content.welcome }}</p>
+        </div>
+        <div>
+            <h2>介绍</h2>
+            <p>{{ manual_content.introduction }}</p>
+        </div>
+        <div>
+            <h2>导航</h2>
+            <p>{{ manual_content.navigation }}</p>
+        </div>
+        <div>
+            <h2>监控</h2>
+            <p>{{ manual_content.monitor }}</p>
+        </div>
+        <div>
+            <h2>参数</h2>
+            <p>{{ manual_content.parameters }}</p>
+        </div>
+        <div>
+            <h2>机器人</h2>
+            <p>{{ manual_content.bot }}</p>
+        </div>
+        <div>
+            <h2>阈值</h2>
+            <p>{{ manual_content.threshold }}</p>
+        </div>
+        <div class="contact">
+            <h2>联系</h2>
+            <p>{{ manual_content.contact }}</p>
+        </div>
+    </div>
+</body>
+</html>
